@@ -45,10 +45,14 @@
 #                and to get/set the matrix's inverse.
 #------------------------------------
 makeCacheMatrix <- function(matrix = matrix()) {
+        
+        #new matrix passed in, so
+        #its inverse does not exist yet.
         inverse_matrix <- NULL
         
         #function to "store" raw matrix.
-        #set inverse equal to null
+        #set inverse equal to null since a
+        #new matrix is being set
         set <- function(y) {
                 m <<- y
                 inverse_matrix <<- NULL

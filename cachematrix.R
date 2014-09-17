@@ -12,13 +12,13 @@
 #                
 #                To set the inverse
 #                > cacheSolve(mat)
-
+#
 #                To call the inverse
 #                > mat$getinverse()
-
+#
 #                To get original matrix
 #                > mat$get()
-
+#
 #                To set a new matrix
 #                > mat$set(matrix)  #where matrix is a new inverted matrix
 #

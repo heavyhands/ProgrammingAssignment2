@@ -45,18 +45,15 @@
 #                and to get/set the matrix's inverse.
 #------------------------------------
 makeCacheMatrix <- function(matrix = matrix()) {
-        
-        #new matrix provided as function parameter
-        #so set inverse to null.
         inverse_matrix <- NULL
-    
+        
         #function to "store" raw matrix.
         #set inverse equal to null
         set <- function(y) {
                 m <<- y
                 inverse_matrix <<- NULL
         }
- 
+        
         #return the raw matrix
         get <- function() m
         
@@ -69,9 +66,10 @@ makeCacheMatrix <- function(matrix = matrix()) {
         #list whose elements are the functions
         #defined above
         list(set = set, get = get,
-                setinverse = setinverse,
-                getinverse = getinverse)
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
+
 #------------------------------------
 # Purpose:      To retrieve the inverse of a matrix from memory - ie: cached
 #               If the inversion does not yet exist, the function
@@ -83,27 +81,27 @@ makeCacheMatrix <- function(matrix = matrix()) {
 # Returns:      An inverted matrix.
 #------------------------------------
 cacheSolve <- function(m, ...) {
-    
-    #call inverted matrix
-    #if (!identical(m, ))
-    inverse <- m$getinverse()
-    
-    #if inverted matrix exists
-    #return it to caller
-    if(!is.null(inverse)) {
-        message("getting cached matrix")
-        return(inverse)
-    }
-    
-    #otherwise, get "raw" matrix so it can be inverted 
-    # and cached for future use.    
-    data <- m$get()
-    
-    #calculate inverse     
-    inverse <- solve(data, ...)
-    
-    #cache the inverse and return it to calling function
-    m$setinverse(inverse)
-    inverse
+        
+        #call inverted matrix        
+        inverse <- m$getinverse()
+        
+        #if inverted matrix exists
+        #return it to caller
+        if(!is.null(inverse)) {
+                message("getting cached matrix")
+                return(inverse)
+        }
+        
+        #otherwise, get "raw" matrix so it can be inverted 
+        #and cached for future use.    
+        data <- m$get()
+        
+        #calculate inverse     
+        inverse <- solve(data, ...)
+        
+        #cache the inverse and return it to calling function
+        m$setinverse(inverse)
+        inverse
 }
+
 #end of program

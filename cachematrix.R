@@ -6,7 +6,7 @@
 #
 #  Usage:        Assuming the working directory is set properly.
 #                Example at the command line:
-#                > source("matrixcache.R")
+#                > source("cachematrix.R")
 #                > amatrix <- matrix(c(1,45,-23,55,-12,9,64,21,18), nrow=3,ncol=3)           
 #                > mat <- makeCacheMatrix(amatrix)
 #                
@@ -31,8 +31,7 @@
 #                2) get/set the inverse of the matrix into memory.
 #                Lexical scoping is used provide a mini "environment"
 #                to store the matrix and its inverse into memory.
-# 
-#                
+#              
 # Functions:     1) set(x) - sets/caches a raw matrix where 'x' is 
 #                   an invertable matrix.
 #                2) get() - returns the raw matrix.

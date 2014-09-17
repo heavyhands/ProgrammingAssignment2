@@ -1,36 +1,62 @@
-#-----------------------------------
-#  Program
-#  Purpose:  To speed up the process of matrix inversion by calculating 
-#            an invertable matrix and then caching a copy of it for subsequent
-#            further use.
+#------------------------------------
+# Purpose:       To speed up the process of matrix inversion by calculating 
+#                an invertable matrix and then caching a copy of it for  
+#                further use. Program will get/set a raw data matrix and 
+#                get/set the matrix's inverse.
 #
-#  Usage:    Assuming the working directory is set properly
-#            Example at the command line:
-#            > source("matrixcache.R")
-#            > m <- matrix(c(1,45,-23,55,-12,9,64,21,18), nrow=3,ncol=3)#            
-#            > mat <- makeCacheMatrix(m)
-#            > cacheSolve(mat)
+#  Usage:        Assuming the working directory is set properly.
+#                Example at the command line:
+#                > source("matrixcache.R")
+#                > amatrix <- matrix(c(1,45,-23,55,-12,9,64,21,18), nrow=3,ncol=3)           
+#                > mat <- makeCacheMatrix(amatrix)
+#                
+#                To set the inverse
+#                > cacheSolve(mat)
+
+#                To call the inverse
+#                > mat$getinverse()
+
+#                To get original matrix
+#                > mat$get()
+
+#                To set a new matrix
+#                > mat$set(matrix)  #where matrix is a new inverted matrix
+#
+# Assumptions:   The matrix is invertable.
 #------------------------------------
 
 #------------------------------------
-# Function Purpose:
+# Purpose:       Define a list of functions to:
+#                1) get/set a matrix into/from memory.
+#                2) get/set the inverse of the matrix into memory.
+#                Lexical scoping is used provide a mini "environment"
+#                to store the matrix and its inverse into memory.
 # 
-# Arguements:    defined_matrix: a matrix
-# Returns:       a function "wrapped" around a list of functions of an 
-#                invertable matrix.
 #                
-# Functions:     1) set(x) - sets/caches a raw matrix where 'x' is the matrix.
-#                2) get - returns the raw matrix.
-#                3) setinverse
-# Assumptions:   matrix is invertable as per the homework instructions
-##------------------------------------
+# Functions:     1) set(x) - sets/caches a raw matrix where 'x' is 
+#                   an invertable matrix.
+#                2) get() - returns the raw matrix.
+#                3) setinverse(new_inverse) - sets/caches the inverted matrix
+#                   into memory where "new_inverse" is the newly created 
+#                   inverted matrix.
+#                4) getinverse() - returns the cached inverse.
+#
+# Returns:       A list with functions to get/set an invertable matrix.
+#                and to get/set the matrix's inverse.
+#------------------------------------
 makeCacheMatrix <- function(matrix = matrix()) {
-    inverse_matrix <- NULL
+        
+        #new matrix provided as function parameter
+        #so set inverse to null.
+        inverse_matrix <- NULL
     
-    set <- function(y) {
-        m <<- y
-        inverse_matrix <<- NULL
-    }
+        #function to "store" raw matrix.
+        #set inverse equal to null
+        set <- function(y) {
+                m <<- y
+                inverse_matrix <<- NULL
+        }
+ 
     get <- function() m
     setinverse <- function(new_inverse) inverse_matrix <<- new_inverse
     getinverse <- function() inverse_matrix
@@ -39,9 +65,16 @@ makeCacheMatrix <- function(matrix = matrix()) {
          getinverse = getinverse)
 }
 
-#------------------------------
-# Returns: an inverted matrix
-#------------------------------
+#------------------------------------
+# Purpose:      To retrieve the inverse of a matrix from memory - ie: cached
+#               If the inversion does not yet exist, the function
+#               will calculate and store it. This function depends on
+#               makeCacheMatrix in order to execute.
+#
+# Arguments:    m - a list created from the function makeCacheMatrix
+#                 
+# Returns:      An inverted matrix.
+#------------------------------------
 cacheSolve <- function(m, ...) {
     
     #call inverted matrix
@@ -66,3 +99,4 @@ cacheSolve <- function(m, ...) {
     m$setinverse(inverse)
     inverse
 }
+#end of program

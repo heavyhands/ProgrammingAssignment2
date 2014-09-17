@@ -57,14 +57,21 @@ makeCacheMatrix <- function(matrix = matrix()) {
                 inverse_matrix <<- NULL
         }
  
-    get <- function() m
-    setinverse <- function(new_inverse) inverse_matrix <<- new_inverse
-    getinverse <- function() inverse_matrix
-    list(set = set, get = get,
-         setinverse = setinverse,
-         getinverse = getinverse)
+        #return the raw matrix
+        get <- function() m
+        
+        #function to "store" inverse matrix
+        setinverse <- function(new_inverse) inverse_matrix <<- new_inverse
+        
+        #returns the inverted matrix from memory
+        getinverse <- function() inverse_matrix
+        
+        #list whose elements are the functions
+        #defined above
+        list(set = set, get = get,
+                setinverse = setinverse,
+                getinverse = getinverse)
 }
-
 #------------------------------------
 # Purpose:      To retrieve the inverse of a matrix from memory - ie: cached
 #               If the inversion does not yet exist, the function
